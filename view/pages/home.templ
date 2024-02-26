@@ -1,0 +1,18 @@
+package pages
+
+import "github.com/nichtsam/go-chat/services/chat"
+
+templ Home(rooms []chat.Room) {
+	@Document() {
+		<h1>Go Chat</h1>
+		<div>
+			<div id="messages"></div>
+			<form id="send_message" ws-send>
+				<input hidden name="intent" value="send_message"/>
+				<input hidden name="room_id" value={ string(rooms[0].Id) }/>
+				<input name="message"/>
+				<input hidden type="submit"/>
+			</form>
+		</div>
+	}
+}

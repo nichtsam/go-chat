@@ -6,6 +6,8 @@ require (
 	github.com/a-h/templ v0.2.543
 	github.com/caarlos0/env/v10 v10.0.0
 	github.com/gin-gonic/gin v1.9.1
+	github.com/google/uuid v1.6.0
+	github.com/gorilla/websocket v1.5.1
 	github.com/joho/godotenv v1.5.1
 )
 

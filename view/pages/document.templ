@@ -1,4 +1,4 @@
-package view 
+package pages
 
 templ Document() {
 	<html lang="en">
@@ -9,7 +9,7 @@ templ Document() {
 			<script src="/public/htmx.min.js"></script>
 			<script src="/public/htmx-ws.min.js"></script>
 		</head>
-		<body>
+		<body hx-ext="ws" ws-connect="/ws">
 			<main>
 				{ children... }
 			</main>
