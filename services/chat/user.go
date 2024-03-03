@@ -35,6 +35,11 @@ func (u *User) Rooms() (rooms []Room) {
 	return
 }
 
+func (u *User) HasRoom(roomId RoomId) bool {
+	_, ok := u.internal.rooms[roomId]
+	return ok
+}
+
 func (u *User) JoinRoom(roomId RoomId) error {
 	room, err := u.internal.service.getRoom(roomId)
 	if err != nil {

@@ -78,3 +78,15 @@ func (s *ChatService) getRoom(roomId RoomId) (*room, error) {
 
 	return room, nil
 }
+
+func (s *ChatService) GetRoom(roomId RoomId) (*Room, error) {
+	room, ok := s.rooms[roomId]
+	if !ok {
+		return nil, fmt.Errorf("Room not found, roomId -> %s", roomId)
+	}
+
+	return &Room{
+		Id:   room.id,
+		Name: room.name,
+	}, nil
+}

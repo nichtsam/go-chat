@@ -9,9 +9,7 @@ type (
 )
 
 var Intent = struct {
-	SEND_MESSAGE,
-	SECOND_INTENT,
-	THIRE_INTENT IntentType
+	SEND_MESSAGE IntentType
 }{
 	SEND_MESSAGE: "send_message",
 }

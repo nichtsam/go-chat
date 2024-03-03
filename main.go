@@ -39,6 +39,7 @@ func main() {
 	// routes
 	server.Static("/public/", "./public/")
 	server.GET("/", handler.handleHome)
+	server.GET("/chat/:roomId", handler.handleChatRoom)
 	server.GET("/ws", ws.HandleRequest) // this gets logged when connection ends
 
 	// run
@@ -51,6 +52,17 @@ type handler struct {
 
 func (h *handler) handleHome(ctx *gin.Context) {
 	if err := pages.Home(h.chat.Rooms()).Render(ctx, ctx.Writer); err != nil {
+		ctx.Status(http.StatusInternalServerError)
+	}
+}
+
+func (h *handler) handleChatRoom(ctx *gin.Context) {
+	roomId := ctx.Param("roomId")
+	room, err := h.chat.GetRoom(chat.RoomId(roomId))
+	if err != nil {
+		ctx.String(http.StatusBadRequest, err.Error())
+	}
+	if err := pages.Chat(*room).Render(ctx, ctx.Writer); err != nil {
 		ctx.Status(http.StatusInternalServerError)
 	}
 }

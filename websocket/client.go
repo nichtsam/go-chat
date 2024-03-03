@@ -22,11 +22,6 @@ type client struct {
 func newClient(conn *websocket.Conn, handler *websocketHandler) *client {
 	user := handler.chat.CreateUser("anonymous")
 
-	// TODO needs to handle select and join room logic
-	if err := user.JoinRoom(handler.chat.Rooms()[0].Id); err != nil {
-		log.Println("Error: Failed to user join room -> ", err)
-	}
-
 	return &client{
 		conn:    conn,
 		handler: handler,

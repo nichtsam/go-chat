@@ -3,6 +3,7 @@ package websocket
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 
 	"github.com/gorilla/websocket"
 
@@ -24,6 +25,12 @@ func handleSendMessage(c *client, i IncomingIntent) error {
 	}{}
 	if err := json.Unmarshal(i.Raw, &data); err != nil {
 		return err
+	}
+
+	if hasRoom := c.user.HasRoom(data.RoomId); !hasRoom {
+		if err := c.user.JoinRoom(data.RoomId); err != nil {
+			log.Println("Error: Room should exist -> ", err)
+		}
 	}
 
 	if err := c.user.WriteMessage(data.RoomId, data.Message); err != nil {
